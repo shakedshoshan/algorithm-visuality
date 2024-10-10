@@ -54,13 +54,6 @@
 - **React Hooks**  
   For managing component state and side effects, providing a clean and efficient way to handle dynamic data and user interactions.
 
-### Build and Deployment
-
-- **npm**  
-  Used for managing project dependencies and running the app through build scripts.
-  
-- **TypeScript Compiler (tsc)**  
-  Compiles TypeScript into JavaScript and ensures type safety across the application.
 
 ## 🎯 Target Audience
 
