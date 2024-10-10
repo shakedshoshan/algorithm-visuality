@@ -8,7 +8,7 @@ import 'prismjs/components/prism-java'
 import 'prismjs/components/prism-csharp'
 
 const languages = [
-  { id: 'javascript', name: 'JavaScript', color: 'text-yellow-400' },
+  { id: 'javascript', name: 'JavaScript', color: 'text-yellow-500' },
   { id: 'python', name: 'Python', color: 'text-blue-400' },
   { id: 'java', name: 'Java', color: 'text-red-400' },
   { id: 'c', name: 'C ', color: 'text-green-400' },
@@ -23,14 +23,14 @@ export function CodeLanguageSwitcherV2({ codeSnippets }: { codeSnippets: Record<
   }, [activeTab])
 
   return (
-    <div className="w-full max-w-1xl mx-auto p-2 bg-gray-100 rounded-xl shadow-lg">
-      <div className="mb-4 flex space-x-4 border-b border-gray-700">
+    <div className="w-full max-w-1xl mx-auto p-2 bg-zinc-200 rounded-xl shadow-lg">
+      <div className="mb-4 flex space-x-4  border-gray-700">
         {languages.map((lang) => (
           <button
             key={lang.id}
             onClick={() => setActiveTab(lang.id)}
             className={`px-4 py-2 text-sm font-medium transition-colors duration-200 relative ${
-              activeTab === lang.id ? lang.color : 'text-gray-800 hover:text-gray-400'
+              activeTab === lang.id ? lang.color : 'text-gray-900 hover:text-gray-400'
             }`}
           >
             {lang.name}

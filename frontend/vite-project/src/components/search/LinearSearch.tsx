@@ -4,12 +4,11 @@ import { useState, useEffect, useRef } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-// import { Slider } from "../components/ui/slider"
 
 export function LinearSearchVisualizer() {
   const [array, setArray] = useState<number[]>([])
   const [searchNumber, setSearchNumber] = useState('')
-  const [currentIndex, setCurrentIndex] = useState(-1)
+  const [currentIndex, setCurrentIndex] = useState<number | null>(null)
   const [found, setFound] = useState(false)
   const [isSearching, setIsSearching] = useState(false)
   const [animationSpeed, setAnimationSpeed] = useState(500)
@@ -23,7 +22,7 @@ export function LinearSearchVisualizer() {
   const generateArray = () => {
     const newArray = Array.from({ length: 20 }, () => Math.floor(Math.random() * 100))
     setArray(newArray)
-    setCurrentIndex(-1)
+    setCurrentIndex(null)
     setFound(false)
     setSearchTime(null)
   }
@@ -32,9 +31,13 @@ export function LinearSearchVisualizer() {
 
   const search = async () => {
     const searchNum = parseInt(searchNumber)
+    if (isNaN(searchNum)) {
+      alert("Please enter a valid number to search.")
+      return
+    }
     setIsSearching(true)
-    setCurrentIndex(-1)
     setFound(false)
+    setCurrentIndex(null)
     setSearchTime(null)
     stopSearchRef.current = false
 
@@ -45,7 +48,7 @@ export function LinearSearchVisualizer() {
         break
       }
       setCurrentIndex(i)
-      await delay(animationSpeed) // Use the animationSpeed for delay
+      await delay(animationSpeed)
 
       if (array[i] === searchNum) {
         setFound(true)
@@ -74,7 +77,7 @@ export function LinearSearchVisualizer() {
           <p><strong>Time Complexity: O(n)</strong></p>
         </div>
         <CardDescription>
-          Linear search is a simple search algorithm that sequentially checks each element in a list until a match is found or the whole list has been searched. It's straightforward but can be inefficient for large datasets.
+          Linear search is a simple search algorithm that checks every element in the array sequentially until a match is found or the end of the array is reached. It works on both sorted and unsorted arrays.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -85,18 +88,19 @@ export function LinearSearchVisualizer() {
             onChange={(e) => setSearchNumber(e.target.value)}
             placeholder="Enter number to search"
             className="w-48"
+            disabled={isSearching}
           />
           {isSearching ? (
             <Button onClick={stopSearch} variant="destructive">
               Stop
             </Button>
           ) : (
-            <Button onClick={search} disabled={isSearching}>
+            <Button onClick={search} disabled={isSearching || array.length === 0}>
               Search
             </Button>
           )}
           <div className="flex-grow"></div>
-          <Button onClick={generateArray} variant="outline">
+          <Button onClick={generateArray} variant="outline" disabled={isSearching}>
             Generate New Array
           </Button>
         </div>
@@ -113,33 +117,55 @@ export function LinearSearchVisualizer() {
             value={animationSpeed}
             onChange={(e) => setAnimationSpeed(parseInt(e.target.value))}
             className="w-full"
+            disabled={isSearching}
           />
         </div>
         <div className="grid grid-cols-10 gap-2">
-          {array.map((num, index) => (
-            <div
-              key={index}
-              className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-medium border-2 ${
-                index === currentIndex
-                  ? 'border-yellow-500 bg-yellow-100'
-                  : found && num === parseInt(searchNumber)
-                  ? 'border-green-500 bg-green-100'
-                  : 'border-gray-300'
-              }`}
-            >
-              {num}
-            </div>
-          ))}
+          {array.map((num, index) => {
+            let classNames = 'w-12 h-12 rounded-full flex items-center justify-center text-sm font-medium border-2 '
+            if (found && num === parseInt(searchNumber)) {
+              classNames += 'border-green-500 bg-green-100'
+            } else if (index === currentIndex) {
+              classNames += 'border-blue-500 bg-blue-100'
+            } else if (index < currentIndex!) {
+              classNames += 'border-gray-500 bg-gray-100'
+            } else {
+              classNames += 'border-gray-300'
+            }
+            return (
+              <div
+                key={index}
+                className={classNames}
+              >
+                {num}
+              </div>
+            )
+          })}
         </div>
         {found && (
           <p className="mt-4 text-green-600">Number {searchNumber} found in the array!</p>
         )}
-        {!found && !isSearching && currentIndex >= 0 && (
+        {!found && !isSearching && currentIndex !== null && currentIndex === array.length - 1 && (
           <p className="mt-4 text-red-600">Number {searchNumber} not found in the array.</p>
         )}
         {searchTime !== null && (
           <p className="mt-2 text-blue-600">Search time: {searchTime.toFixed(3)} seconds</p>
         )}
+        
+        <div className="mt-8">
+          <h2 className="text-xl font-semibold mb-3 text-center">Color Legend:</h2>
+          <div className="flex flex-wrap justify-center space-x-6 text-sm">
+            <span className="flex items-center mb-3">
+              <div className="w-4 h-4 bg-blue-100 border-2 border-blue-500 rounded-full mr-2"></div>Current
+            </span>
+            <span className="flex items-center mb-3">
+              <div className="w-4 h-4 bg-gray-100 border-2 border-gray-500 rounded-full mr-2"></div>Checked
+            </span>
+            <span className="flex items-center mb-3">
+              <div className="w-4 h-4 bg-green-100 border-2 border-green-500 rounded-full mr-2"></div>Found
+            </span>
+          </div>
+        </div>
       </CardContent>
     </Card>
   )

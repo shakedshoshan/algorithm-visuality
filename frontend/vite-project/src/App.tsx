@@ -1,47 +1,53 @@
-import './App.css'
-import {BubbleSort} from './components/sort/BubbleSort'
-import {InsertSort} from './components/sort/InsertSort'
-import { QuickSort } from './components/sort/Quickort'
-import {SelectionSort} from './components/sort/SelectionSort'
-import {CodeLanguageSwitcherV2} from './components/code-language-switcher-v2'
-import {bubbleSortSnippets} from './CodeSnippets/BubbleSortCode'
-import {insertSortSnippets} from './CodeSnippets/InsertSort'
-import {selectionSortSnippets} from './CodeSnippets/SelectionSort'
-import {quickSortSnippets} from './CodeSnippets/QuickSortCode'
-import { LinearSearchVisualizer } from './components/search/LinearSearch'
-import { BinarySearchVisualizer } from './components/search/BinarySearch'
-import { JumpSearchVisualizer } from './components/search/JumpSearch'
-import { InterpolationSearchVisualizer } from './components/search/InterpolationSearch'
-function App() {
-
-
-  return (
-    <div className='container mx-auto px-2 py-4'>
-      <h1 className='text-2xl font-bold text-center mb-4'>Sorting Algorithm Visualizer</h1>
-      {/* <div className='flex flex-col gap-4'>
-        <div className='flex flex-col md:flex-row gap-2'>
-          <BubbleSort />
-          <div className='md:w-1/3'><CodeLanguageSwitcherV2 codeSnippets={bubbleSortSnippets} /></div>
+    import './App.css'
+    import { useState } from 'react'
+    import { motion, AnimatePresence } from 'framer-motion'
+    import SortingPage from './pages/SortingPage'
+    import SearchPage from './pages/SearchPage'
+    
+    function App() {
+      const [activeTab, setActiveTab] = useState<'sort' | 'search'>('sort')
+    
+      return (
+        <div className='bg-slate-100 min-h-screen p-8'>
+          <h1 className='text-4xl font-bold text-center m-10 text-indigo-700'>Welcome to the Algorithm Visualizer</h1>
+          
+          <div className='flex justify-center mb-8'>
+            <button
+              className={`px-16 py-1 mr-4 rounded-lg transition-all duration-300 ${
+                activeTab === 'sort' 
+                  ? 'bg-indigo-600 text-white shadow-lg' 
+                  : 'bg-white text-indigo-600 hover:bg-indigo-100'
+              }`}
+              onClick={() => setActiveTab('sort')}
+            >
+              Sort
+            </button>
+            <button
+              className={`px-16 py-3 mr-4 rounded-lg transition-all duration-300 ${
+                activeTab === 'search' 
+                  ? 'bg-indigo-600 text-white shadow-lg' 
+                  : 'bg-white text-indigo-600 hover:bg-indigo-100'
+              }`}
+              onClick={() => setActiveTab('search')}
+            >
+              Search
+            </button>
+          </div>
+    
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              {activeTab === 'sort' ? <SortingPage /> : <SearchPage />}
+            </motion.div>
+          </AnimatePresence>
+    
         </div>
-        <div className='flex flex-col md:flex-row gap-2'>
-          <InsertSort />
-          <div className='md:w-1/3'><CodeLanguageSwitcherV2 codeSnippets={insertSortSnippets} /></div>
-        </div>
-        <div className='flex flex-col md:flex-row gap-2'>
-          <SelectionSort />
-          <div className='md:w-1/3'><CodeLanguageSwitcherV2 codeSnippets={selectionSortSnippets} /></div>
-        </div>
-        <div className='flex flex-col md:flex-row gap-2'>
-          <QuickSort />
-          <div className='md:w-1/3'><CodeLanguageSwitcherV2 codeSnippets={quickSortSnippets} /></div>
-        </div>
-      </div> */}
-      <LinearSearchVisualizer />
-      <BinarySearchVisualizer />
-      <JumpSearchVisualizer />
-      <InterpolationSearchVisualizer />
-    </div>
-  )
-}
-
-export default App
+      )
+    }
+    
+    export default App
