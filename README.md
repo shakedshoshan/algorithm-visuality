@@ -85,7 +85,7 @@ git clone https://github.com/your-username/algorithm-visuality.git
 2. Navigate to the project directory:
 
 ```bash
-cd algorithm-visuality
+cd /frontend/vite-project
 ```
 
 3.Install the dependencies:
