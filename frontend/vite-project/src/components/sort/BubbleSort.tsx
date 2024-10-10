@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react"
 import { Bar, BarChart, Cell, XAxis, YAxis } from "recharts"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { CodeLanguageSwitcherV2 } from "../code-language-switcher-v2"
 
 // Custom hook for setInterval with React Hooks
 const useInterval = (callback: () => void, delay: number | null) => {
@@ -22,6 +23,7 @@ export function BubbleSort() {
   const [animationSpeed, setAnimationSpeed] = useState(50)
   const [startTime, setStartTime] = useState<number | null>(null)
   const [elapsedTime, setElapsedTime] = useState<number | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   // Generate random array
   // Function to generate a new random array
@@ -32,6 +34,7 @@ export function BubbleSort() {
     setCurrentIndex(0)
     setSortedIndex(null)
     setElapsedTime(null)
+    setError(null)
   }, [])
 
   // Initialize array on component mount
@@ -82,10 +85,19 @@ export function BubbleSort() {
     setCurrentIndex(0)
     setSortedIndex(array.length - 1)
     setStartTime(Date.now())
+    setError(null)
+  }
+
+  // Function to stop sorting
+  const stopSort = () => {
+    setSorting(false)
+    setError("Sorting was interrupted. The algorithm did not finish running.")
+    setElapsedTime((Date.now() - (startTime ?? 0)) / 1000)
   }
 
   return (
     <Card className="w-full max-w-3xl">
+      
       <CardHeader>
         <CardTitle className="font-bold text-2xl">Bubble Sort Algorithm Visualizer</CardTitle>
         <div className="text-sm font-normal">
@@ -95,8 +107,9 @@ export function BubbleSort() {
       </CardHeader>
       <div className="flex items-center justify-center font-semibold">
           <span className="">Elapsed Time: </span>
-        <span className="text-sm font-normal">{elapsedTime !== null ? ` ${elapsedTime} sec` : "  You didn't start the sorting yet"}</span>
+        <span className="text-sm font-normal">{elapsedTime !== null ? ` ${elapsedTime.toFixed(2)} sec` : "  You didn't start the sorting yet"}</span>
       </div>
+      {error && <div className="text-red-500 text-center">{error}</div>}
       <CardContent>
         <BarChart width={600} height={300} data={array.map((value, index) => ({ value, index }))} margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
           <XAxis dataKey="index" tick={false} interval={0} />  // Explicitly set interval
@@ -129,9 +142,15 @@ export function BubbleSort() {
           />
           <span className="ml-2">{animationSpeed} ms</span>
         </div>
-        <Button onClick={startSort} disabled={sorting || completed}>
-          {completed ? "Sorting Completed" : sorting ? "Sorting..." : "Start Sorting"}
-        </Button>
+        {sorting ? (
+          <Button onClick={stopSort}>
+            Stop Sorting
+          </Button>
+        ) : (
+          <Button onClick={startSort} disabled={completed}>
+            {completed ? "Sorting Completed" : "Start Sorting"}
+          </Button>
+        )}
       </CardFooter>
     </Card>
   )
