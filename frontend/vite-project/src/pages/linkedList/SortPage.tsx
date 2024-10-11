@@ -10,6 +10,8 @@ import {selectionSortSnippets} from '../../CodeSnippets/array/SelectionSort.ts'
 import {quickSortSnippets} from '../../CodeSnippets/array/QuickSortCode.ts'
 import { BubbleSortLL } from '@/components/sort/linkedListSort/BubbleSortLL.tsx'
 import { InsertionSortLL } from '@/components/sort/linkedListSort/InsertionSortLL.tsx'
+import { QuickSortLL } from '@/components/sort/linkedListSort/QuickSortLL.tsx'
+import { MergeSortLL } from '@/components/sort/linkedListSort/MergeSortLL.tsx'
 const SortingPage = () => {
   return (
     <div className='container mx-auto px-2 py-4'>
@@ -23,12 +25,12 @@ const SortingPage = () => {
           <div className='md:w-2/3 h-full'><InsertionSortLL /></div>
           <div className='md:w-1/3 h-full'><CodeLanguageSwitcherV2 codeSnippets={insertSortSnippets} /></div>
         </div>
-      {/*  <div className='flex flex-col md:flex-row gap-2 h-[500px]'>
-          <div className='md:w-2/3 h-full'><QuickSort /></div>
+        <div className='flex flex-col md:flex-row gap-2 h-[500px]'>
+          <div className='md:w-2/3 h-full'><QuickSortLL /></div>
           <div className='md:w-1/3 h-full'><CodeLanguageSwitcherV2 codeSnippets={quickSortSnippets} /></div>
         </div>
-        <div className='flex flex-col md:flex-row gap-2 h-[500px]'>
-          <div className='md:w-2/3 h-full'><SelectionSort /></div>
+       {/* <div className='flex flex-col md:flex-row gap-2 h-[500px]'>
+          <div className='md:w-2/3 h-full'><MergeSortLL /></div>
           <div className='md:w-1/3 h-full'><CodeLanguageSwitcherV2 codeSnippets={selectionSortSnippets} /></div>
         </div> */}
       </div>
