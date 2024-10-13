@@ -19,8 +19,6 @@ export function SelectionSort() {
   const [completed, setCompleted] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [minIndex, setMinIndex] = useState<number | null>(null)
-  const [searchingIndex, setSearchingIndex] = useState<number | null>(null)
-  const [switchingIndex, setSwitchingIndex] = useState<number | null>(null)
   const [animationSpeed, setAnimationSpeed] = useState(50)
   const [startTime, setStartTime] = useState<number | null>(null)
   const [elapsedTime, setElapsedTime] = useState<number | null>(null)
@@ -34,8 +32,6 @@ export function SelectionSort() {
     setCompleted(false)
     setCurrentIndex(0)
     setMinIndex(null)
-    setSearchingIndex(null)
-    setSwitchingIndex(null)
     setElapsedTime(null)
     setError(null)
   }, [])
@@ -55,27 +51,33 @@ export function SelectionSort() {
     }
 
     const newArray = [...array]
-    let minIdx = minIndex !== null ? minIndex : currentIndex
+    let minIdx = currentIndex
 
+    // Find the index of the minimum element in the unsorted portion
     for (let i = currentIndex + 1; i < newArray.length; i++) {
-      setSearchingIndex(i)
       if (newArray[i] < newArray[minIdx]) {
         minIdx = i
-        setMinIndex(minIdx)
       }
     }
 
+    // Update the minIndex for visualization
+    setMinIndex(minIdx)
+
+    // Swap if a smaller element was found
     if (minIdx !== currentIndex) {
-      setSwitchingIndex(currentIndex)
       const temp = newArray[currentIndex]
       newArray[currentIndex] = newArray[minIdx]
       newArray[minIdx] = temp
+      setArray(newArray)
     }
 
-    setArray(newArray)
-    setCurrentIndex((prevIndex) => prevIndex + 1)
+    // Move to the next index after a short delay to allow visualization
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) => prevIndex + 1)
+      setMinIndex(null)
+    }, animationSpeed)
     
-  }, [array, currentIndex, minIndex, startTime])
+  }, [array, currentIndex, startTime, animationSpeed])
 
   // Custom hook to control the sorting animation using setInterval
   useInterval(
@@ -91,8 +93,6 @@ export function SelectionSort() {
     setCompleted(false)
     setCurrentIndex(0)
     setMinIndex(null)
-    setSearchingIndex(null)
-    setSwitchingIndex(null)
     setStartTime(Date.now())
     setError(null)
   }
@@ -109,24 +109,37 @@ export function SelectionSort() {
       <CardHeader>
         <CardTitle className="font-bold text-2xl">Selection Sort Algorithm Visualizer</CardTitle>
         <div className="text-sm font-normal">
-          <p><strong>Time Complexity:  O(n<sup>2</sup></strong>)</p>
+          <p><strong>Time Complexity:  O(n<sup>2</sup>)</strong></p>
         </div>
-        <CardDescription>Selection sort is a simple sorting algorithm that divides the input list into two parts: the sublist of items already sorted, which is built up from left to right at the front (left) of the list, and the sublist of items remaining to be sorted that occupy the rest of the list. Initially, the sorted sublist is empty and the unsorted sublist is the entire input list. The algorithm proceeds by finding the smallest (or largest, depending on sorting order) element in the unsorted sublist, exchanging (swapping) it with the leftmost unsorted element (putting it in sorted order), and moving the sublist boundaries one element to the right.</CardDescription>
+        <CardDescription>
+          Selection sort is a simple sorting algorithm that divides the input list into two parts: the sublist of items already sorted, which is built up from left to right at the front (left) of the list, and the sublist of items remaining to be sorted that occupy the rest of the list. Initially, the sorted sublist is empty and the unsorted sublist is the entire input list. The algorithm proceeds by finding the smallest (or largest, depending on sorting order) element in the unsorted sublist, exchanging (swapping) it with the leftmost unsorted element (putting it in sorted order), and moving the sublist boundaries one element to the right.
+        </CardDescription>
       </CardHeader>
       <div className="flex items-center justify-center font-semibold">
-          <span className="">Elapsed Time: </span>
+        <span className="">Elapsed Time: </span>
         <span className="text-sm font-normal">{elapsedTime !== null ? ` ${elapsedTime.toFixed(2)} sec` : "  You didn't start the sorting yet"}</span>
       </div>
       {error && <div className="text-red-500 text-center">{error}</div>}
       <CardContent>
-        <BarChart width={600} height={300} data={array.map((value, index) => ({ value, index }))} margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
-          <XAxis dataKey="index" tick={false} interval={0} />  // Explicitly set interval
+        <BarChart
+          width={600}
+          height={300}
+          data={array.map((value, index) => ({ value, index }))}
+          margin={{ top: 5, right: 5, bottom: 5, left: 5 }}
+        >
+          <XAxis dataKey="index" tick={false} interval={0} />  {/* Explicitly set interval */}
           <YAxis hide />
           <Bar dataKey="value">
             {array.map((_, index) => (
               <Cell
                 key={`cell-${index}`}
-                fill={index === currentIndex ? "hsl(var(--primary))" : index === minIndex || index === currentIndex-1 ? "color(display-p3 0.3 0.3 0.9)" : "hsl(var(--muted))"}
+                fill={
+                  index === currentIndex
+                    ? "hsl(var(--primary))"
+                    : index === minIndex
+                      ? "color(display-p3 0.3 0.3 0.9)" // Highlight the current minimum
+                      : "hsl(var(--muted))"
+                }
               />
             ))}
           </Bar>

@@ -22,7 +22,7 @@ export function QuickSort() {
   const [completed, setCompleted] = useState(false)
   const [stack, setStack] = useState<StackItem[]>([])
   const [pivot, setPivot] = useState<number | null>(null)
-  const [partitionIndex, setPartitionIndex] = useState<number | null>(null)
+  // const [partitionIndex, setPartitionIndex] = useState<number | null>(null)
   const [animationSpeed, setAnimationSpeed] = useState(50)
   const [startTime, setStartTime] = useState<number | null>(null)
   const [elapsedTime, setElapsedTime] = useState<number | null>(null)
@@ -35,7 +35,7 @@ export function QuickSort() {
     setCompleted(false)
     setStack([])
     setPivot(null)
-    setPartitionIndex(null)
+    // setPartitionIndex(null)
     setElapsedTime(null)
     setError(null)
   }, [])
@@ -78,7 +78,7 @@ export function QuickSort() {
 
       setArray(newArray)
       setPivot(pivotIndex)
-      setPartitionIndex(pivotIndex)
+      // setPartitionIndex(pivotIndex)
 
       // Push larger subarray first to ensure O(log n) space complexity
       if (pivotIndex - low < high - pivotIndex) {

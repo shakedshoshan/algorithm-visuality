@@ -1,15 +1,31 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import SortingPage from './array/SortingPage';
 import SearchPage from './array/SearchPage';
 
-const ArrayComponent: React.FC = () => {
+const ArrayComponent = () => {
   const [activeTab, setActiveTab] = useState<'sort' | 'search'>('sort');
 
   return (
     <div className="flex flex-col items-center justify-center mb-8">
+      <h2 className="text-4xl font-semibold text-indigo-700 mb-4">Array Visualization</h2>
       <div className="bg-white p-6 rounded-lg shadow-md max-w-5xl">
-        <h2 className="text-xl font-semibold text-indigo-700 mb-4">Array Visualization</h2>
+        
+        <div className="mb-4 p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+          <h3 className="text-lg font-semibold text-indigo-700 mb-2">Array Overview</h3>
+          <p className="text-sm font-medium text-indigo-600 mb-2">
+            An array is a fundamental data structure that stores elements in contiguous memory locations. It offers several key features:
+          </p>
+          <ul className="list-none font-medium space-y-1 text-sm text-indigo-600">
+            <li>• Random Access: Direct access to any element using its index</li>
+            <li>• Fixed Size: Size is determined at creation (in many languages)</li>
+            <li>• Homogeneous Elements: All elements are of the same data type</li>
+          </ul>
+          <p className="text-sm font-medium text-indigo-600 mt-4">
+            This example shows an array of integers with indices ranging from <code className="bg-indigo-100 px-1 rounded">0</code> to <code className="bg-indigo-100 px-1 rounded">9</code>, 
+            demonstrating how elements are stored and accessed sequentially.
+          </p>
+        </div>
         <div className="flex items-center space-x-2 justify-center">
           {[4, 2, 7, 1, 5, 3, 6, 9, 8, 0].map((value, index) => (
             <div

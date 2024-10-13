@@ -1,8 +1,7 @@
-// 'use client'
+'use client'
 
 import { useState, useEffect, useRef } from 'react'
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
 export function StackSortVisualizer() {
@@ -55,6 +54,9 @@ export function StackSortVisualizer() {
       await delay(animationSpeed)
 
       while (tempStackCopy.length > 0 && tempStackCopy[tempStackCopy.length - 1] > temp) {
+        if (stopSortRef.current) {
+          break
+        }
         const movedElement = tempStackCopy.pop()!
         setCurrentElement(movedElement)
         setCurrentElementPosition('moving')
@@ -89,11 +91,13 @@ export function StackSortVisualizer() {
       await delay(animationSpeed)
     }
 
-    setIsSorting(false)
-    setCurrentElement(null)
-    setCurrentElementPosition('main')
-    const endTime = performance.now()
-    setSortTime((endTime - startTime) / 1000)
+    if (!stopSortRef.current) {
+      setIsSorting(false)
+      setCurrentElement(null)
+      setCurrentElementPosition('main')
+      const endTime = performance.now()
+      setSortTime((endTime - startTime) / 1000)
+    }
   }
 
   const stopSort = () => {
@@ -106,7 +110,7 @@ export function StackSortVisualizer() {
       <CardHeader>
         <CardTitle className="font-bold text-2xl">Stack Sort Visualizer</CardTitle>
         <div className="text-sm font-normal">
-          <p><strong>Time Complexity: O(n^2)</strong></p>
+          <p><strong>Time Complexity: O(n²)</strong></p>
         </div>
         <CardDescription>
           Stack sort is a sorting algorithm that uses two stacks. It repeatedly pops elements from the main stack and inserts them into their correct position in a temporary stack, eventually resulting in a sorted stack.
@@ -145,9 +149,9 @@ export function StackSortVisualizer() {
           />
         </div>
         <div className="flex justify-between">
-          <div className="flex flex-col-reverse items-center gap-2">
+          <div className="flex flex-col-reverse items-center gap-2 w-1/2">
             <h3 className="font-semibold">Main Stack</h3>
-            <div className="h-[400px] flex flex-col-reverse justify-start">
+            <div className="h-[400px] flex flex-col-reverse justify-start overflow-auto border border-t-0 border-gray-300 p-2 rounded">
               {stack.map((num, index) => (
                 <div
                   key={index}
@@ -167,9 +171,9 @@ export function StackSortVisualizer() {
               </div>
             )}
           </div>
-          <div className="flex flex-col-reverse items-center gap-2">
+          <div className="flex flex-col-reverse items-center gap-2 w-1/2">
             <h3 className="font-semibold">Temp Stack</h3>
-            <div className="h-[400px] flex flex-col-reverse justify-start">
+            <div className="h-[400px] flex flex-col-reverse justify-start overflow-auto border border-t-0 border-gray-300 p-2 rounded">
               {tempStack.map((num, index) => (
                 <div
                   key={index}
@@ -191,7 +195,7 @@ export function StackSortVisualizer() {
           <h2 className="text-xl font-semibold mb-3 text-center">Color Legend:</h2>
           <div className="flex flex-wrap justify-center space-x-6 text-sm">
             <span className="flex items-center mb-3">
-              <div className="w-4 h-4 bg-blue-100 border-2 border-blue-500 rounded-full mr-2"></div>Current Element
+              <div className="w-4 h-4 bg-blue-100 border-2  border-blue-500 rounded-full mr-2"></div>Current Element
             </span>
           </div>
         </div>

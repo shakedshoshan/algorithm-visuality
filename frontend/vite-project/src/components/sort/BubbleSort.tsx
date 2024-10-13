@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react"
 import { Bar, BarChart, Cell, XAxis, YAxis } from "recharts"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { CodeLanguageSwitcherV2 } from "../code-language-switcher-v2"
+
 
 // Custom hook for setInterval with React Hooks
 const useInterval = (callback: () => void, delay: number | null) => {

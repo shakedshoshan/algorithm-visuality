@@ -9,8 +9,23 @@ import SearchPage from './linkedList/SearchPage';
   
     return (
       <div className="flex flex-col items-center justify-center mb-8">
+        <h2 className="text-4xl font-semibold text-indigo-700 mb-4">Linked List Visualization</h2>
             <div className="bg-white p-6 rounded-lg shadow-md max-w-5xl">
-              <h2 className="text-xl font-semibold text-indigo-700 mb-4">Linked List Visualization</h2>
+              
+              <div className="mb-4 p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+          <h3 className="text-lg font-semibold text-indigo-700 mb-2">Linked List Overview</h3>
+          <p className="text-sm font-medium text-indigo-600 mb-2">
+            A linked list is a linear data structure where elements are stored in nodes. Each node contains a data field and a reference (or link) to the next node in the sequence. Key features include:
+          </p>
+          <ul className="list-none font-medium space-y-1 text-sm text-indigo-600">
+            <li>• Dynamic Size: Can grow or shrink in size during execution</li>
+            <li>• Efficient Insertion/Deletion: Can be done in constant time O(1)</li>
+            <li>• No Random Access: Elements are accessed sequentially</li>
+          </ul>
+          <p className="text-sm font-medium text-indigo-600 mt-4">
+            This example shows a singly linked list where each node points to the next node, and the last node points to <code className="bg-indigo-100 px-1 rounded">null</code>.
+          </p>
+        </div>
               <div className="flex items-center space-x-4 justify-center">
                 
                 {/* Example Linked List: 4 → 2 → 7 → 1 → 5 → 3 → 6 → 9 → 8 → 0 */}
@@ -37,7 +52,7 @@ import SearchPage from './linkedList/SearchPage';
                 )) }
               </div>
               <div className="flex items-center space-x-6 justify-center mt-2">
-                { [4, 2, 7, 1, 5, 3, 6].map((value, index) => (
+                { [4, 2, 7, 1, 5, 3, 6].map(( index) => (
                   <div key={index} className="w-24 text-center text-sm text-indigo-600">
                     Node {index}
                   </div>

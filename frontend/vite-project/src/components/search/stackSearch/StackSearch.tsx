@@ -20,7 +20,7 @@ export function StackSearchVisualizer() {
   }, [])
 
   const generateStack = () => {
-    const newStack = Array.from({ length: 10 }, () => Math.floor(Math.random() * 100))
+    const newStack = Array.from({ length: 8 }, () => Math.floor(Math.random() * 100))
     setStack(newStack)
     setCurrentIndex(null)
     setFound(false)
@@ -120,7 +120,7 @@ export function StackSearchVisualizer() {
             disabled={isSearching}
           />
         </div>
-        <div className="flex flex-col-reverse items-center gap-2">
+        <div className="flex flex-col-reverse items-center  gap-2">
           {stack.map((num, index) => {
             let classNames = 'w-32 h-12 flex items-center justify-center text-sm font-medium border-2 '
             if (found && num === parseInt(searchNumber)) {
