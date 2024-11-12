@@ -1,0 +1,14 @@
+name: Print Update Message
+
+on: 
+  push:
+    branches:
+      - main  # Adjust this to your default branch if it's not 'main'
+
+jobs:
+  print-message:
+    runs-on: windows-latest
+
+    steps:
+      - name: Print Update Message
+        run: echo "repo is updated!"
