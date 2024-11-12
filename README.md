@@ -9,7 +9,7 @@
 ![Screenshot-AlgorithmVisualizer 2](https://github.com/user-attachments/assets/6651b06f-3d13-457e-b934-bcc202a75901)
 
 
-## 🚀 Key Features
+## 🚀 Key Features 
 
 - **Interactive Visualizations**  
   Engage with dynamic visual representations of algorithms, including:
