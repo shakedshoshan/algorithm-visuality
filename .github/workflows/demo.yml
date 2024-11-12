@@ -1,10 +1,5 @@
 name: Print Update Message
-
-on: 
-  push:
-    branches:
-      - main  # Adjust this to your default branch if it's not 'main'
-
+'on': push
 jobs:
   print-message:
     runs-on: windows-latest
