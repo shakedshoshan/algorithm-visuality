@@ -1,0 +1,9 @@
+name: Print Update Message
+'on': push
+jobs:
+  print-message:
+    runs-on: windows-latest
+
+    steps:
+      - name: Print Update Message
+        run: echo "repo is updated!"
