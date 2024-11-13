@@ -4,6 +4,9 @@
 
 **Algorithm Visuality** is an interactive web application designed to help users understand and visualize various algorithms. This project provides a user-friendly interface for exploring the inner workings of popular search and sort algorithms. With dynamic visualizations and well-documented code snippets, the app offers both educational insights and practical demonstrations, making it an ideal tool for students, educators, and developers interested in algorithmic concepts.
 
+*Link to website*:
+https://algorithm-visuality.onrender.com/
+
 ![Screenshot-AlgorithmVisualizer 1](https://github.com/user-attachments/assets/1e2573f0-e80c-437c-a36d-2d2dadd6e153)
 
 ![Screenshot-AlgorithmVisualizer 2](https://github.com/user-attachments/assets/6651b06f-3d13-457e-b934-bcc202a75901)
