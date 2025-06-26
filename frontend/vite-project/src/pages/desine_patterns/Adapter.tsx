@@ -1,10 +1,7 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { CodeLanguageSwitcherV2 } from '../../components/code-language-switcher-v2';
 import { adapterSnippets } from '../../CodeSnippets/designPatterns/AdapterSnippets';
 
 const Adapter = () => {
-  const [activeTab, setActiveTab] = useState<'implementation' | 'examples'>('implementation');
 
   return (
     <div className="flex flex-col items-center justify-start mb-8">
@@ -80,6 +77,13 @@ const Adapter = () => {
             </tr>
           </tbody>
         </table>
+      </div>
+
+      {/* Structure */}
+
+      <div className="mt-8 bg-white flex flex-col items-center p-6 rounded-lg shadow-md w-full max-w-4xl">
+        <h2 className="text-lg font-semibold text-indigo-700 mb-2">Structure</h2>
+        <img src="https://refactoring.guru/images/patterns/diagrams/adapter/structure-object-adapter-2x.png" alt="Adapter Pattern Diagram" className="mt-4 w-1/2 h-1/2" />
       </div>
 
       {/* Problem Statement */}
