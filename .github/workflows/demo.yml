@@ -1,5 +1,6 @@
 name: Print Update Message
-'on': push
+on:
+  workflow_dispatch:
 jobs:
   print-message:
     runs-on: windows-latest
