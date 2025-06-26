@@ -27,7 +27,7 @@ const Home = () => {
           </li>
           <li>
             <h3 className="text-xl font-semibold text-indigo-600">4. Queue</h3>
-            <p className="text-gray-700">A First-In-First-Out (FIFO) data structure. Queues are commonly used in breadth-first search algorithms, managing tasks in multi-threading, and handling requests in computer systems.</p>
+            <p className="text-gray-700">A First-In-First-Out (FIFO) data structure. Queues are commonly used in breadth-first search algorithms, managing tasks in multi-threading, and handling requests in computer systems. <Link to="/queue" className="text-indigo-600 hover:underline font-semibold">Try our Queue visualizer!</Link></p>
           </li>
           <li>
             <h3 className="text-xl font-semibold text-indigo-600">5. Hash Table</h3>
